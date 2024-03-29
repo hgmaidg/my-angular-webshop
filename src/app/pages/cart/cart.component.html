@@ -36,13 +36,15 @@
                 Quantity
             </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button>
-                    <mat-icon>remove</mat-icon>
-                </button>
-                <span>{{element.quantity}}</span>
-                <button mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button>
+                <div class="quantity-selector">
+                    <button (click)="onRemoveQuantity(element)" mat-icon-button>
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <span class="quantity-value">{{element.quantity}}</span>
+                    <button (click)="onAddQuantity(element)" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -59,10 +61,10 @@
         </ng-container>
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>
-                <button mat-raised-button color="warn" class="float-right">Clear All</button>
+                <button (click)="onClearCart()" mat-raised-button color="warn" class="float-right">Clear All</button>
             </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button color="warn" class="float-right">
+                <button (click)="onRemoveFromCart(element)" mat-icon-button color="warn" class="float-right">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
@@ -75,10 +77,12 @@
         <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
 </mat-card>
-<mat-card class="max-w-7xl mx-auto" *ngIf="!cart.items.length">
+<mat-card class="max-w-7xl mx-auto empty-card" *ngIf="!cart.items.length">
     <p>Your cart is empty
-        <button mat-raised-button routerLink="home">
+    </p>
+    <a routerLink="/home" href="">
+        <button mat-raised-button routerLink="home" color="primary">
             Start shopping
         </button>
-    </p>
+    </a>
 </mat-card>
